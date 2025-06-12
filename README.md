@@ -25,7 +25,7 @@ Also check [its tweet thread](https://twitter.com/ShunyuYao12/status/16593575474
 
 
 ## Setup
-1. Set up OpenAI API key and store in environment variable ``OPENAI_API_KEY`` (see [here](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety)). 
+1. For GPT backends, set up an OpenAI API key and store it in ``OPENAI_API_KEY`` (see [here](https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety)). For a local LLaMA model, set ``LLAMA_MODEL_NAME`` to the HuggingFace model path.
 
 2. Install `tot` package in two ways:
 - Option 1: Install from PyPI
@@ -42,13 +42,13 @@ pip install -e .  # install `tot` package
 
 
 ## Quick Start
-The following minimal script will attempt to solve the game of 24 with `4 5 6 10` (might be a bit slow as it's using GPT-4):
+The following minimal script will attempt to solve the game of 24 with `4 5 6 10`. Here we show how to run with a local LLaMA model (set ``LLAMA_MODEL_NAME`` appropriately):
 ```python
 import argparse
 from tot.methods.bfs import solve
 from tot.tasks.game24 import Game24Task
 
-args = argparse.Namespace(backend='gpt-4', temperature=0.7, task='game24', naive_run=False, prompt_sample=None, method_generate='propose', method_evaluate='value', method_select='greedy', n_generate_sample=1, n_evaluate_sample=3, n_select_sample=5)
+args = argparse.Namespace(backend='llama', temperature=0.7, task='game24', naive_run=False, prompt_sample=None, method_generate='propose', method_evaluate='value', method_select='greedy', n_generate_sample=1, n_evaluate_sample=3, n_select_sample=5)
 
 task = Game24Task()
 ys, infos = solve(args, task, 900)
